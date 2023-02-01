@@ -28,13 +28,13 @@ const app = createApp({
         },
         //4 取得產品
         getProduct(){
-            console.log(`${site}/v2/api/${path}/admin/products/all`)
-            //const url = `${site}/v2/api/${api_path}/admin/products/all`;
-            // axios.get(url)
-            // .then((res) => {
-            //     console.log(res)
-            //     this.products = res.data.products
-            // })
+            //console.log(`${site}/v2/api/${path}/admin/products/all`)
+            const url = `${site}/v2/api/${path}/admin/products/all`;
+            axios.get(url)
+            .then((res) => {
+                console.log(res)
+                this.products = res.data.products
+            })
         },
     },
     //2. 取出Token
