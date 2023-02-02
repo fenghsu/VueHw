@@ -1,8 +1,8 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.esm-browser.min.js';
 
 
-const site = 'https://vue3-course-api.hexschool.io/';
-const path = 'hsufengss';
+const site = 'https://vue3-course-api.hexschool.io';
+const api_path = 'hsufengss';
 
 
 const app = createApp({
@@ -16,8 +16,7 @@ const app = createApp({
     },
     methods: {
         login() {            
-            //console.log(this.user)
-            //console.log(`${site}/v2/admin/signin`)
+            
             const url = `${site}/v2/admin/signin`;
             axios.post(url, this.user)
             .then((res)=>{
@@ -34,8 +33,7 @@ const app = createApp({
     },
     mounted(){
         //console.log('hi')
-        console.log(`${site}/v2/admin/signin`);
-        
+        //console.log(`${site}/admin/signin`);        
     }
 })
 app.mount('#app')

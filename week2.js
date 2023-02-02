@@ -2,38 +2,42 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue
 
 
 const site = 'https://vue3-course-api.hexschool.io/';
-const path = 'hsufengss';
+const api_path = 'bananacake';
 
 //1. 建立環境
 const app = createApp({
     data(){
         return{
-            products:[]
+            products:[],
+            tempProduct:{}
         }
     },
     methods: {
     //3 確認是否登入
         checkLogin(){
-            console.log(`${site}/v2/api/user/check`);
-            const url = `${site}/v2/api/user/check`;
-            axios.post(url)
+            //console.log(`${site} api/user/check`);
+            
+            axios.post(`${site}v2/api/user/check`)
             .then((res) => {
                 console.log(res)
                 this.getProduct();
             })
             .catch((err) => {
                 console.log(err)
-                //window.location = '/login.html'
+                window.location = '/login.html'
             })
         },
         //4 取得產品
         getProduct(){
-            //console.log(`${site}/v2/api/${path}/admin/products/all`)
-            const url = `${site}/v2/api/${path}/admin/products/all`;
+            //console.log(`${site}api/${path}/admin/products/all`)
+            const url = `${site}v2/api/${api_path}/admin/products`;
             axios.get(url)
             .then((res) => {
                 console.log(res)
                 this.products = res.data.products
+            })
+            .catch(err =>{
+                console.log(err);
             })
         },
     },
