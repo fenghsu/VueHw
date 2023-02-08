@@ -35,7 +35,7 @@ const app = createApp({
     updateProduct(){
         console.log('hi');
         //console.log(`${site}api/${path}/admin/product`)
-        const url = `${site}/api/${path}/admin/product`;
+        const url = `${site}api/${path}/admin/product`;
         axios.post(url, { data: this.tempProduct }) //res帶出{data:this.tempProduct}內容
         .then(res => {
             console.log(res);
