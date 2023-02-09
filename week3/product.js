@@ -14,7 +14,7 @@ const app = createApp({
             tempProduct:{
                 imagesUrl:[],
             },
-            isNew: false,
+            isNew: false, //確認編輯或新增所使用
         }
     },
     methods: {
@@ -31,16 +31,55 @@ const app = createApp({
             console.log(err)
         })
     },
-    //6. 更新data
+    //7. 打開Modal
+    //8. 區分新增及編輯的modal
+    openModal(status, product){
+        
+       // console.log(status)
+       if(status === 'create'){
+        productModal.show();
+        this.isNew = true;
+        //會帶入初始化資料
+        this.tempProduct = {
+            imagesUrl:[],
+        }
+       }else if( status === 'edit'){
+        productModal.show();
+        this.isNew = false;
+        //會帶入當前要編輯的資料
+        this.tempProduct ={...product} ;
+       }else if( status === 'delete'){
+        delproductModal.show();
+        this.tempProduct ={...product} ; //等等取id使用
+       }
+
+    },
+    //6. 建立新產品
     updateProduct(){
-        console.log('hi');
-        //console.log(`${site}api/${path}/admin/product`)
-        const url = `${site}api/${path}/admin/product`;
-        axios.post(url, { data: this.tempProduct }) //res帶出{data:this.tempProduct}內容
+        //console.log('hi');
+        let url = `${site}api/${path}/admin/product`;
+        //9. 用 this.New 判斷api怎麼進行
+        let method = 'post'
+        if(!this.isNew){
+            url = `${site}api/${path}/admin/product/${this.tempProduct.id}`;
+            method = 'put'
+        }
+
+        axios[method](url, { data: this.tempProduct }) //res帶出{data:this.tempProduct}內容
         .then(res => {
             console.log(res);
             this.getProducts(); //更新完要重新填寫
+            productModal.hide();
         })
+    },
+    //12. 刪除產品
+    deleteProduct(){
+        const url = `${site}api/${path}/admin/product/${this.tempProduct.id}`;
+        axios.delete(url) 
+        .then(() => {
+            this.getProducts(); 
+            productModal.hide();
+        });
     }
     },
     mounted() {
@@ -59,7 +98,8 @@ const app = createApp({
     //5.1 初始化new
     //第7行已宣告productModal物件
     productModal = new bootstrap.Modal('#productModal');
-    //5.2 呼叫方法 show, hide
-    productModal.show();
+    //5.2 呼叫方法 show, hide   
+    //productModal.show();
+    delproductModal = new bootstrap.Modal('#delProductModal')
     },
 }).mount('#app')
