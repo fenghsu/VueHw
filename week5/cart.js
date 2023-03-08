@@ -14,7 +14,7 @@ defineRule('max', max);
 loadLocaleFromURL('./zh_TW.json');
 // Activate the locale
 configure({
-  generateMessage: localize('zh_TW'),
+    generateMessage: localize('zh_TW'),
   //validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
 });
 
@@ -79,7 +79,7 @@ Vue.createApp({
             form: {
                 user: {
                   name: '',
-                  email: '',
+                  email:'',
                   tel: '',
                   address: '',
                 },
